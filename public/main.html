@@ -3,47 +3,53 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css"><script src="./js/script.js"></script>
     <title>App</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 <body>
 
     <div class="form-style-5">
-        <form method="post" action="/name">
+        <form>
         <fieldset>
         <legend><span class="number">1</span> New Employee</legend>
-        <input type="text" name="name" placeholder="Name">
-        <input type="email" name="email" placeholder="Email">
-        <input type="text" name="age" placeholder="Age">
-        <input type="number" name="phone_number" placeholder="Telephone">
-        <label for="job">Hobbies:</label>
-        <select id="job" name="hobbies">
-        <optgroup label="Indoors">
-          <option value="fishkeeping">Fishkeeping</option>
-          <option value="reading">Reading</option>
-          <option value="boxing">Boxing</option>
-          <option value="debate">Debate</option>
-          <option value="gaming">Gaming</option>
-          <option value="snooker">Snooker</option>
-          <option value="other_indoor">Other</option>
-        </optgroup>
-        <optgroup label="Outdoors">
-          <option value="football">Football</option>
-          <option value="swimming">Swimming</option>
-          <option value="fishing">Fishing</option>
-          <option value="climbing">Climbing</option>
-          <option value="cycling">Cycling</option>
-          <option value="other_outdoor">Other</option>
-        </optgroup>
-        </select>
+        <input type="text"  placeholder="Name" id="name">
+        <input type="email"  placeholder="Email" id="email">
+        <input type="text" name="age" placeholder="Age" id="age">
+        <input type="text" name="phone_number" placeholder="Telephone"id="phone_number">
+        <input type="text"  placeholder="Hobbies" id="hobbies">
         </fieldset>
         <fieldset>
         <legend><span class="number">2</span> Programming skills</legend>
-        <textarea name="skills" placeholder="Name every programming language you know"></textarea>
+        <textarea name="skills" id="skills" placeholder="Name every programming language you know"></textarea>
         </fieldset>
-        <input type="submit" value="Submit" />
+        <input id="post-button" type="submit" value="Submit" />
+
         </form>
         </div>
+
+        <div class='container centered'><a id='get-button' class='waves-effect waves-light btn #880e4f pink darken-4'>View all</a></div>
+        <br/>
+        <hr>
+         <div class='col s12'>
+             <table class='striped' id='list'>
+                 <thead>
+                     <tr>
+                         <th>Name</th>
+                         <th>Email</th>
+                         <th>Age</th>
+                         <th>Phone Number</th>
+                         <th>Hobbies</th>
+                         <th>Skills</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+
+                 </tbody>
+             </table>
+         </div>
 
         <style type="text/css">
             .form-style-5{

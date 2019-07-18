@@ -1,32 +1,64 @@
-var express = require("express");
-const bodyParser = require('body-parser');
-var app = express();
-var port = 3000;
-global.MongoClient = require('mongodb').MongoClient;
-var router = require("./router");
-var url = "mongodb://localhost:27017";
+(function() {
+  'use strict';
+  // Express is a javascript routing framework.
+  var express = require('express'),
+
+  // Mongoose helps to connect to MongoDB
+  mongoose = require('mongoose'),
+
+  //Define the app
+  app = express(),
+
+  // Define your port
+  port = process.env.PORT || 3000,
+
+  // Require the config file
+  config = require('./config/config'),
+
+  //Dependency to help with path
+  path = require('path'),
+
+  // Body Parser
+  bodyParser = require('body-parser'),
+
+  // Controller
+  Employee = require('./server/controllers/employees');
+
+  // routes
+  // routes = require('./server/routes/employees');
+  app.use(bodyParser.json());
+
+  // Routes
+  app.get('/api/view', Employee.find);
+  app.post('/api/save', Employee.create);
+  app.delete('/api/delete/:email', Employee.delete);
 
 
+  // Connect to the database
+  // mongoose.connect(config.db, function(err) {
+  //   if (err) {
+  //     console.log('Could not connect to database');
+  //   } else {
+  //     console.log('Connected to the database');
+  //   }
+  // });
 
-console.log("BANANA4");
-global.MongoClient.connect(url, function(err, client){
-  console.log("BANANA5");
-  global.db = client.db("employee");
-  global.emp = global.db.collection("emp");
+  mongoose.connect('mongodb://localhost:27017/employee', {useNewUrlParser: true});
+
+  // Default path or route
+  app.get('/', function(req, res) {
+    // Deliver html file
+    res.sendFile(path.join(__dirname + '/public/main.html'));
+    app.use(express.static(__dirname + '/public'));
+  });
 
 
-  console.log("BANANA6");
-});
-
-app.listen(port, () => {
- console.log("Server listening on port " + port);
-});
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-
-app.use('/name', router);
-
-app.use("/", (req, res) => {
- res.sendFile(__dirname + "/main.html");
-});
+  // Start up the server
+  app.listen(port, function(err) {
+    if (err) {
+      console.log('Cannot connect to port');
+    } else {
+      console.log('Connected on port ' + port);
+    }
+  });
+})();
